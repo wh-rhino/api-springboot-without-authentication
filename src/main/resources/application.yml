@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+    validationQuery: SELECT 1
+    minIdle: 5
+    maxActive: 20
+    maxIdle: 10
+    testOnBorrow: true
+    testWhileIdle: true
+    initialSize: 5
+    validationInterval: 30000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    maxAge: 0
+    removeAbandoned: false
+    removeAbandonedTimeout: 0
+
+errores:
+  crearusuario:
+    exito:
+      codigo: "000"
+      description: "Usuario creado exitosamente"
+    fracaso:
+      codigo: "001"
+      description: "Error tecnico, favor contactar administrador"
+ 
+uri:
+  sandbox: "https://sandbox.ionix.cl/test-tecnico/search?rut="
