@@ -106,7 +106,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		try {
 			consulta = apiExternaRestClient.consultarSandbox(usuarioDTO.getUsuario());
 		} catch (Exception e) {
-			log.error("consultaSandBox Exception : ", e.getCause());
+			log.error("consultaSandBox Exception : ", e.toString());
 		}	
 		Instant end = Instant.now();
 		if(consulta != null) {

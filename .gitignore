@@ -32,3 +32,11 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Eclipse ###
+.settings/*
+.classpath
+.project
+
+### Java ###
+*.class

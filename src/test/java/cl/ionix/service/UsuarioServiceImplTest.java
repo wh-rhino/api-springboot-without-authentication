@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 @SpringBootConfiguration
 @ContextConfiguration
 @SpringBootTest
-public class UsuarioServiceImplTests {
+public class UsuarioServiceImplTest {
 
 	@InjectMocks
 	private UsuarioServiceImpl service;

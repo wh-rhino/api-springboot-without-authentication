@@ -1,10 +1,10 @@
 package cl.ionix.util;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.Base64;
+import java.security.spec.KeySpec;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -12,34 +12,37 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
+import org.apache.commons.codec.binary.Base64;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TransformacionUtil {
 
-	private TransformacionUtil() {
+	private static final String DESEDE_ENCRYPTION_SCHEME = "DES";
+	
+	TransformacionUtil() {
 	}
 	
-	/**
-	 * Metodo para cifrar rut a enviar a url sandbox.
-	 * 
-	 * @param rutUsuario
-	 * @return param
-	 */
-	public static String cifradoDES(String rutUsuario) {
-		String param = null;
+	public static String cifradoDES(String param) {
+		String result = null;
 		try {
-			SecretKeyFactory secret = SecretKeyFactory.getInstance("DES");
-			DESKeySpec key = new DESKeySpec(rutUsuario.getBytes());
-			SecretKey secretKey = secret.generateSecret(key);
-			Cipher cipher = Cipher.getInstance("DES");
+			String key = "DeprecatedDes";
+			byte[] array = key.getBytes(StandardCharsets.UTF_8);
+			KeySpec ks = new DESKeySpec(array);
+			SecretKeyFactory skf = SecretKeyFactory.getInstance(DESEDE_ENCRYPTION_SCHEME);
+			SecretKey secretKey = skf.generateSecret(ks);
+			
+			// TODO: Noncompliant: DES works with 56-bit keys allow attacks via exhaustive search
+			Cipher cipher = Cipher.getInstance(DESEDE_ENCRYPTION_SCHEME);
+			
 			cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-			byte[] cleartext = rutUsuario.getBytes("UTF8");
-			byte[] encrypted = cipher.doFinal(cleartext);
-			param = Base64.getEncoder().encode(encrypted).toString();
-		} catch (NoSuchAlgorithmException | InvalidKeyException | InvalidKeySpecException | NoSuchPaddingException | UnsupportedEncodingException | IllegalBlockSizeException | BadPaddingException e) {
-			log.info("cifradoDES Exception : " + e.getCause());
+			byte[] text = param.getBytes(StandardCharsets.UTF_8);
+			byte[] encrypted = cipher.doFinal(text);
+			result = new String(Base64.encodeBase64(encrypted));			
+		} catch (InvalidKeyException | IllegalBlockSizeException | 
+					BadPaddingException | NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException e) {
+			log.error("cifradoDES : ", e);
 		}
-		return param;
+		return result;
 	}
 }

@@ -12,14 +12,14 @@ import cl.ionix.dto.ConsultaDTO;
 import cl.ionix.dto.ResponseDTO;
 import cl.ionix.dto.UsuarioDTO;
 import cl.ionix.model.UsuarioModel;
-import cl.ionix.service.UsuarioServiceImpl;
+import cl.ionix.service.UsuarioService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
 public class UsuarioController {
 
 	@Autowired
-	private UsuarioServiceImpl service;
+	private UsuarioService service;
 	
 	@ApiOperation("Endpoint que permite crear usuarios")
 	@PostMapping(value = "/usuario", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

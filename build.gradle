@@ -24,6 +24,9 @@ jar {
 }
 
 dependencies {
+	
+	implementation 'commons-codec:commons-codec:1.15'
+	
 	implementation 'org.postgresql:postgresql'
 	
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'

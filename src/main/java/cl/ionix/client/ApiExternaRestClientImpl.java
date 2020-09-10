@@ -9,10 +9,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import cl.ionix.dto.ConsultaDTO;
 import cl.ionix.dto.ItemDTO;
 import cl.ionix.properties.PropertiesUtil;
+import cl.ionix.util.TransformacionUtil;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -33,6 +35,8 @@ public class ApiExternaRestClientImpl implements ApiExternaRestClient {
 	 * 
 	 * @param rutUsuario
 	 * @return
+	 * @throws Exception 
+	 * @throws RestClientException 
 	 */
 	@Override
 	public ConsultaDTO consultarSandbox(String rutUsuario) {
@@ -41,10 +45,9 @@ public class ApiExternaRestClientImpl implements ApiExternaRestClient {
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 
 		HttpEntity<ConsultaDTO> entity = new HttpEntity<>(null, headers);
-		// TODO: Revisar dado que el metodo de cifrado esta generando error
-		// ResponseEntity<ConsultaDTO> response = this.restTemplate.exchange(uri.getSandbox().concat(TransformacionUtil.cifradoDES(rutUsuario)), HttpMethod.GET, entity, ConsultaDTO.class);
-		
-		ResponseEntity<ConsultaDTO> response = this.restTemplate.exchange(uri.getSandbox().concat(rutUsuario), HttpMethod.GET, entity, ConsultaDTO.class);
+
+		//ResponseEntity<ConsultaDTO> response = null;
+		ResponseEntity<ConsultaDTO> response = this.restTemplate.exchange(uri.getSandbox().concat(TransformacionUtil.cifradoDES(rutUsuario)), HttpMethod.GET, entity, ConsultaDTO.class);
 
 		log.info("response : " + response.getBody().getDescription());
 
