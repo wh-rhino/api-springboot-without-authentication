@@ -46,7 +46,6 @@ public class ApiExternaRestClientImpl implements ApiExternaRestClient {
 
 		HttpEntity<ConsultaDTO> entity = new HttpEntity<>(null, headers);
 
-		//ResponseEntity<ConsultaDTO> response = null;
 		ResponseEntity<ConsultaDTO> response = this.restTemplate.exchange(uri.getSandbox().concat(TransformacionUtil.cifradoDES(rutUsuario)), HttpMethod.GET, entity, ConsultaDTO.class);
 
 		log.info("response : " + response.getBody().getDescription());
