@@ -29,7 +29,8 @@ dependencies {
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	  	
+	implementation 'org.codehaus.groovy:groovy:2.5.13'
+		
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
@@ -37,4 +38,6 @@ dependencies {
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.spockframework:spock-core:1.1-groovy-2.4-rc-2'
+	testImplementation 'org.codehaus.groovy:groovy-all:2.4.7'
+	
 }
